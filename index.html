@@ -124,18 +124,59 @@
   .rail a:hover{background:var(--accent);}
   @media(max-width:1100px){.rail{display:none;}}
 
-  /* ---------- hero ---------- */
-  .hero{padding:150px 0 72px;}
+  /* ---------- hero: pinned work deck ---------- */
+  .hero-stage{height:280vh;position:relative;}
+  .hero-pin{
+    position:sticky;top:0;height:100vh;min-height:560px;
+    display:flex;align-items:center;overflow:hidden;
+  }
+  .hero-pin .wrap{
+    display:grid;grid-template-columns:1.15fr 1fr;
+    gap:clamp(24px,4vw,64px);align-items:center;width:100%;
+  }
   .hero-meta{
     display:flex;flex-wrap:wrap;gap:10px 26px;
     color:var(--ink-soft);margin-bottom:34px;
   }
-  .hero h1{
-    font-size:clamp(52px,9.5vw,138px);
+  .hero-copy h1{
+    font-size:clamp(40px,5.8vw,88px);
   }
-  .hero h1 .tint{
+  .hero-copy h1 .tint{
     color:transparent;
     -webkit-text-stroke:2px var(--ink);
+  }
+  .deck{
+    position:relative;aspect-ratio:4/5;
+    max-height:58vh;width:100%;max-width:400px;
+    justify-self:end;
+  }
+  .deck img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    border-radius:6px;border:1px solid var(--line);
+    box-shadow:0 14px 44px rgba(25,28,25,0.18);
+    transform:translate(var(--ox,0),var(--oy,0)) rotate(var(--rz,0deg));
+    transition:transform .55s cubic-bezier(.2,.7,.2,1),opacity .45s ease;
+    will-change:transform,opacity;
+  }
+  .deck img.flung{
+    transform:translate(var(--fx,120%),var(--fy,-80%)) rotate(var(--fr,20deg)) scale(.45);
+    opacity:0;pointer-events:none;
+  }
+  .scroll-hint{
+    position:absolute;bottom:22px;left:50%;transform:translateX(-50%);
+    color:var(--ink-soft);transition:opacity .4s ease;
+  }
+  .hero-intro{padding:8px 0 72px;}
+  .hero-intro .hero-sub{margin:0;}
+  @media(max-width:860px){
+    .hero-pin .wrap{grid-template-columns:1fr;gap:26px;align-content:center;}
+    .hero-meta{margin-bottom:20px;}
+    .deck{max-height:44vh;justify-self:center;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero-stage{height:auto;}
+    .hero-pin{position:relative;height:auto;min-height:0;padding:150px 0 60px;}
+    .scroll-hint{display:none;}
   }
   .hero-sub{
     max-width:600px;font-size:clamp(17px,1.6vw,20px);
@@ -430,14 +471,35 @@
 </nav>
 
 <!-- ================= HERO ================= -->
-<section class="hero" id="top" data-accent="#191C19">
-  <div class="wrap">
-    <div class="hero-meta mono">
-      <span>Gavin Murphy</span>
-      <span>Santa Barbara, CA</span>
-      <span>Full stack marketing · Social-first</span>
+<section class="hero-stage" id="top" data-accent="#191C19">
+  <div class="hero-pin">
+    <div class="wrap">
+      <div class="hero-copy">
+        <div class="hero-meta mono">
+          <span>Gavin Murphy</span>
+          <span>Santa Barbara, CA</span>
+          <span>Full stack marketing · Social-first</span>
+        </div>
+        <h1 class="display">Give me<br>the brand.<br><span class="tint">I'll give you<br>the culture.</span></h1>
+      </div>
+      <div class="deck" id="deck" aria-hidden="true">
+    <img src="img/36.jpg" alt="">
+    <img src="img/37.jpg" alt="">
+    <img src="img/38.jpg" alt="">
+    <img src="img/39.jpg" alt="">
+    <img src="img/40.jpg" alt="">
+    <img src="img/41.jpg" alt="">
+    <img src="img/42.jpg" alt="">
+    <img src="img/43.jpg" alt="">
+    <img src="img/44.jpg" alt="">
+      </div>
     </div>
-    <h1 class="display">Every brand<br>has a voice.<br><span class="tint">I speak all of them.</span></h1>
+    <div class="scroll-hint mono">Scroll</div>
+  </div>
+</section>
+
+<section class="hero-intro">
+  <div class="wrap">
     <p class="hero-sub">I'm a <strong>full stack marketer</strong> with an emphasis on <strong>social media</strong> — strategy, photography, video, design, and the production muscle to ship all of it myself. Over the last few years I've built content for cannabis, apparel, retail, fitness, and athlete brands, each with a completely different look and audience.</p>
     <div class="index-row">
       <a class="chip" href="#raw-garden" style="--c:#A98B3F"><i></i>Raw Garden <span class="mono">Cannabis</span></a>
@@ -507,18 +569,23 @@
         <figure class="product" style="margin:0"><div class="pframe"><img src="img/08.jpg" alt="Raw Garden Sauce Sprout AIO · 1.0g product photo" loading="lazy"></div><figcaption><span>Sauce Sprout AIO · 1.0g</span></figcaption></figure>
       </div>
     </div>
-    <div class="grid g-2 reveal" style="margin-top:14px;">
+    <div class="shelf reveal">
+      <div class="shelf-head">
+        <span class="mono">Farm to shelf — where the design comes from</span>
+        <p>Raw Garden is vertically integrated — everything it sells starts on its own Santa Barbara County farms. I documented the farm, then built the packaging around it.</p>
+      </div>
+      <div class="grid g-2">
       <div class="frame r-169"><img src="img/09.jpg" alt="Raw Garden farm — hoop house rows" loading="lazy"><span class="tag">rg-farm-hoophouse</span></div>
       <div class="frame r-169"><img src="img/10.jpg" alt="Raw Garden farm — tractor and field work" loading="lazy"><span class="tag">rg-farm-tractor</span></div>
     </div>
-    <div class="grid g-3 reveal" style="margin-top:14px;">
+      <div class="grid g-3" style="margin-top:14px;">
       <div class="frame r-34"><img src="img/11.jpg" alt="Raw Garden Sauce ceramic cartridge packaging, held in hand" loading="lazy"></div>
       <div class="frame r-34"><img src="img/12.jpg" alt="Raw Garden Sauce ceramic cartridge packaging, side panel macro detail" loading="lazy"></div>
       <div class="case-copy" style="align-self:center;font-size:14.5px;">
-        <p style="margin:0;"><strong>Retail packaging design.</strong> The Sauce ceramic cartridge box — art direction and design for a product sold on dispensary shelves across California. Physical product design, not a social graphic.</p>
+        <p style="margin:0;"><strong>Sauce packaging design.</strong> The box wears the farm: the hoop-house illustration along its base echoes the rows in the photos above, and the Sun Grown mark carries that farm-to-shelf story onto dispensary shelves across California. Art direction and design for a physical retail product.</p>
+      </div>
       </div>
     </div>
-    <p class="grid-note">Full case study: hero drip → concentrate macro → lifestyle → catalog + merch → farm + process → culture + campaign design</p>
     <div class="receipts reveal">
       <div class="receipts-head">
         <span class="mono">Receipts — live account performance</span>
@@ -823,6 +890,44 @@
   }else{
     document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
   }
+
+  // Hero deck: clone tagged shots into a pile, fling them as you scroll
+  (function(){
+    const deck = document.getElementById('deck');
+    const stage = document.querySelector('.hero-stage');
+    if(!deck || !stage) return;
+    // fling vectors: alternate directions so the pile bursts outward
+    const scatter = [[-130,-45,-26],[135,-70,20],[-145,35,-32],[150,45,28],[-70,-125,-15],
+                     [80,-135,13],[-155,-95,-34],[160,-85,30],[-90,115,-22],[95,105,24],
+                     [-120,-110,-18],[125,95,16]];
+    [...deck.querySelectorAll('img')].forEach((c,i)=>{ // DOM order: first = bottom of pile
+      c.style.setProperty('--rz', ((i%2 ? 1 : -1) * (1 + (i*37)%3)) + 'deg');
+      c.style.setProperty('--ox', (((i*53)%13)-6) + 'px');
+      c.style.setProperty('--oy', (((i*29)%11)-5) + 'px');
+      const s = scatter[i % scatter.length];
+      c.style.setProperty('--fx', s[0]+'%');
+      c.style.setProperty('--fy', s[1]+'%');
+      c.style.setProperty('--fr', s[2]+'deg');
+    });
+    if(reduceMotion) return; // static stack, no pin, no fling
+    const cards = [...deck.children]; // DOM order: first = bottom of pile
+    const hint = document.querySelector('.scroll-hint');
+    function update(){
+      const max = stage.offsetHeight - window.innerHeight;
+      if(max <= 0) return;
+      const p = Math.min(1, Math.max(0, (window.scrollY - stage.offsetTop) / max));
+      const n = cards.length;
+      cards.forEach((c,i)=>{
+        const fromTop = n - 1 - i;               // 0 = top card
+        const t = 0.12 + fromTop * (0.68 / (n-1)); // top flings first, rest follow
+        c.classList.toggle('flung', p > t);
+      });
+      if(hint) hint.style.opacity = p > 0.04 ? 0 : 1;
+    }
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+    update();
+  })();
 
   // Instagram-style carousel dots
   document.querySelectorAll('.ig-carousel').forEach(car=>{
