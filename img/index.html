@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gavin Murphy · Full Stack Marketing, Santa Barbara</title>
+<meta name="description" content="Gavin Murphy is a Santa Barbara based full stack marketer specializing in social media, content production, photography, and video across cannabis, apparel, retail, fitness, and athlete verticals.">
+<meta property="og:title" content="Gavin Murphy · Full Stack Marketing, Santa Barbara">
+<meta property="og:description" content="Full stack marketer. Social strategy, photography, video, and design. Case studies for Raw Garden, Chaz Bowker, Lovebug, Cold Call, Cortex, and SETS.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#FAF8F3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     GAVIN MURPHY PORTFOLIO
+     Concept: gallery-neutral base; each client section retints
+     the whole page to that brand's world. One marketer, many voices.
+     ============================================================ */
+  :root{
+    --paper:#FAF8F3;
+    --paper-tint:#FAF8F3;
+    --ink:#191C19;
+    --ink-soft:#4A4F49;
+    --line:rgba(25,28,25,0.13);
+    --line-strong:rgba(25,28,25,0.32);
+    /* accent is live, swapped per section on scroll */
+    --accent:#191C19;
+    --accent-soft:rgba(25,28,25,0.07);
+    --frame-tint:rgba(25,28,25,0.045);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *,*::before,*::after{transition:none!important;animation:none!important;}
+  }
+  body{
+    margin:0;
+    background:var(--paper-tint);
+    color:var(--ink);
+    font-family:'Instrument Sans',system-ui,sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    transition:background 1s ease;
+  }
+  ::selection{background:var(--accent);color:var(--paper);}
+
+  .display{
+    font-family:'Archivo',system-ui,sans-serif;
+    font-variation-settings:'wdth' 125;
+    font-weight:800;
+    letter-spacing:-0.01em;
+    line-height:0.95;
+    margin:0;
+    text-transform:uppercase;
+  }
+  .mono{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+  }
+  a{color:inherit;}
+  img{display:block;max-width:100%;}
+
+  .wrap{max-width:1240px;margin:0 auto;padding:0 clamp(20px,4vw,56px);}
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    background:color-mix(in srgb, var(--paper-tint) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    transition:background 1s ease;
+  }
+  .topbar .wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    height:56px;
+  }
+  .brand{
+    font-family:'Archivo',sans-serif;
+    font-variation-settings:'wdth' 125;
+    font-weight:800;text-transform:uppercase;
+    font-size:15px;letter-spacing:0.04em;
+    text-decoration:none;
+    display:flex;align-items:center;gap:10px;
+  }
+  .brand .dot{
+    width:10px;height:10px;border-radius:50%;
+    background:var(--accent);
+    transition:background .5s ease;
+  }
+  .topnav{display:flex;gap:22px;}
+  .topnav a{
+    text-decoration:none;font-size:13px;font-weight:500;
+    color:var(--ink-soft);
+  }
+  .topnav a:hover{color:var(--accent);}
+  .top-cta{
+    text-decoration:none;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;
+    letter-spacing:0.08em;text-transform:uppercase;
+    border:1px solid var(--line-strong);
+    padding:7px 14px;border-radius:99px;
+    transition:background .3s,color .3s,border-color .3s;
+  }
+  .top-cta:hover{background:var(--accent);border-color:var(--accent);color:var(--paper);}
+  @media(max-width:760px){.topnav{display:none;}}
+
+  /* ---------- side index rail ---------- */
+  .rail{
+    position:fixed;left:14px;top:50%;transform:translateY(-50%);
+    z-index:40;display:flex;flex-direction:column;gap:10px;
+  }
+  .rail a{
+    display:block;width:18px;height:3px;border-radius:2px;
+    background:var(--line-strong);
+    transition:width .3s ease,background .3s ease;
+  }
+  .rail a.active{width:34px;background:var(--accent);}
+  .rail a:hover{background:var(--accent);}
+  @media(max-width:1100px){.rail{display:none;}}
+
+  /* ---------- hero: pinned work deck ---------- */
+  .hero-stage{height:280vh;position:relative;}
+  .hero-pin{
+    position:sticky;top:0;height:100vh;min-height:560px;
+    display:flex;align-items:center;overflow:hidden;
+  }
+  .hero-pin .wrap{
+    display:grid;grid-template-columns:1.15fr 1fr;
+    gap:clamp(24px,4vw,64px);align-items:center;width:100%;
+  }
+  .hero-meta{
+    display:flex;flex-wrap:wrap;gap:10px 26px;
+    color:var(--ink-soft);margin-bottom:34px;
+  }
+  .hero-copy h1{
+    font-size:clamp(40px,5.8vw,88px);
+  }
+  .hero-copy h1 .tint{
+    color:transparent;
+    -webkit-text-stroke:2px var(--ink);
+  }
+  .deck{
+    position:relative;aspect-ratio:4/5;
+    max-height:58vh;width:100%;max-width:400px;
+    justify-self:end;
+  }
+  .deck img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    border-radius:6px;border:1px solid var(--line);
+    box-shadow:0 14px 44px rgba(25,28,25,0.18);
+    transform:translate(var(--ox,0),var(--oy,0)) rotate(var(--rz,0deg));
+    transition:transform .55s cubic-bezier(.2,.7,.2,1),opacity .45s ease;
+    will-change:transform,opacity;
+  }
+  .deck img.flung{
+    transform:translate(var(--fx,120%),var(--fy,-80%)) rotate(var(--fr,20deg)) scale(.45);
+    opacity:0;pointer-events:none;
+  }
+  .scroll-hint{
+    position:absolute;bottom:22px;left:50%;transform:translateX(-50%);
+    color:var(--ink-soft);transition:opacity .4s ease;
+  }
+  .hero-intro{padding:8px 0 72px;}
+  .hero-intro .hero-sub{margin:0;}
+  @media(max-width:860px){
+    .hero-pin .wrap{grid-template-columns:1fr;gap:26px;align-content:center;}
+    .hero-meta{margin-bottom:20px;}
+    .deck{max-height:44vh;justify-self:center;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero-stage{height:auto;}
+    .hero-pin{position:relative;height:auto;min-height:0;padding:150px 0 60px;}
+    .scroll-hint{display:none;}
+  }
+  .hero-sub{
+    max-width:600px;font-size:clamp(17px,1.6vw,20px);
+    color:var(--ink-soft);margin:30px 0 0;
+  }
+  .hero-sub strong{color:var(--ink);font-weight:600;}
+
+  /* client index chips */
+  .index-row{
+    margin-top:46px;padding-top:26px;border-top:1px solid var(--line);
+    display:flex;flex-wrap:wrap;gap:10px;
+  }
+  .chip{
+    display:inline-flex;align-items:center;gap:9px;
+    text-decoration:none;
+    border:1px solid var(--line-strong);border-radius:99px;
+    padding:9px 16px;font-size:13px;font-weight:500;
+    transition:transform .2s ease, background .2s ease, border-color .2s ease;
+    background:var(--paper);
+  }
+  .chip i{
+    width:9px;height:9px;border-radius:50%;
+    background:var(--c,var(--ink));flex:none;
+  }
+  .chip .mono{font-size:10px;color:var(--ink-soft);}
+  .chip:hover{transform:translateY(-2px);border-color:var(--c,var(--ink));}
+
+  /* ---------- capabilities ---------- */
+  .caps{border-top:1px solid var(--line);padding:54px 0;}
+  .caps .wrap{display:grid;grid-template-columns:repeat(5,1fr);gap:28px;}
+  .cap .mono{color:var(--accent);transition:color .5s;}
+  .cap h3{font-size:15px;margin:8px 0 5px;font-weight:600;}
+  .cap p{margin:0;font-size:13.5px;color:var(--ink-soft);line-height:1.55;}
+  @media(max-width:960px){.caps .wrap{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:520px){.caps .wrap{grid-template-columns:1fr;}}
+
+  /* ---------- case sections ---------- */
+  .case{border-top:1px solid var(--line);padding:88px 0 96px;}
+  .case-head{display:grid;grid-template-columns:1fr 320px;gap:40px;align-items:end;margin-bottom:44px;}
+  @media(max-width:860px){.case-head{grid-template-columns:1fr;}}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:9px;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;
+    letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:16px;transition:color .5s;
+  }
+  .eyebrow::before{
+    content:"";width:22px;height:2px;background:var(--accent);
+    transition:background .5s;
+  }
+  .case h2{
+    font-size:clamp(38px,5.5vw,72px);
+    color:color-mix(in srgb, var(--accent) 55%, var(--ink));
+    transition:color 1s ease;
+  }
+  .case-copy{font-size:15.5px;color:var(--ink-soft);}
+  .case-copy p{margin:0 0 14px;}
+  .case-copy strong{color:var(--ink);font-weight:600;}
+  .meta-list{
+    list-style:none;margin:22px 0 0;padding:16px 0 0;
+    border-top:1px solid var(--line);
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;
+    letter-spacing:0.05em;text-transform:uppercase;color:var(--ink-soft);
+  }
+  .meta-list li{display:flex;justify-content:space-between;gap:16px;padding:5px 0;}
+  .meta-list li b{color:var(--ink);font-weight:500;text-align:right;text-wrap:balance;}
+
+  /* image grid + drop-in frames */
+  .grid{display:grid;gap:14px;}
+  .g-3{grid-template-columns:repeat(3,1fr);}
+  .g-2{grid-template-columns:repeat(2,1fr);}
+  .g-4{grid-template-columns:repeat(4,1fr);}
+  .g-hero{grid-template-columns:1.6fr 1fr;}
+  /* ratio-matched columns: every frame in the row lands at the same height */
+  .g-cortex{grid-template-columns:9fr 9fr 10.7fr;}
+  .g-sets{grid-template-columns:1.42fr 1fr 1fr 1fr;}
+  .g-events{grid-template-columns:1.22fr 1fr;}
+  @media(max-width:760px){.g-3,.g-4,.g-hero,.g-cortex,.g-sets{grid-template-columns:repeat(2,1fr);} .g-events{grid-template-columns:1fr;}}
+  @media(max-width:480px){.g-3,.g-2,.g-4,.g-hero,.g-cortex,.g-sets,.g-events{grid-template-columns:1fr;}}
+  .frame{
+    position:relative;overflow:hidden;border-radius:4px;
+    background:
+      repeating-linear-gradient(-45deg, transparent 0 14px, var(--frame-tint) 14px 15px),
+      linear-gradient(160deg, var(--accent-soft), transparent 70%),
+      var(--paper);
+    border:1px solid var(--line);
+    display:flex;align-items:flex-end;
+    transition:background .6s ease;
+  }
+  .frame.r-43{aspect-ratio:4/3;}
+  .frame.r-34{aspect-ratio:3/4;}
+  .frame.r-11{aspect-ratio:1/1;}
+  .frame.r-169{aspect-ratio:16/9;}
+  .frame.r-916{aspect-ratio:9/16;}
+  .frame.r-45{aspect-ratio:4/5;}
+  .frame.r-23{aspect-ratio:2/3;}
+  .frame.r-57{aspect-ratio:5/7;}
+  .frame .tag{
+    margin:10px;padding:5px 9px;border-radius:3px;
+    background:var(--paper);border:1px solid var(--line);
+    font-family:'IBM Plex Mono',monospace;font-size:10px;
+    letter-spacing:0.05em;color:var(--ink-soft);
+  }
+  .frame img,.frame video{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  }
+  .frame:has(img) .tag,.frame:has(video) .tag{display:none;}
+  .grid-note{
+    margin-top:12px;font-family:'IBM Plex Mono',monospace;
+    font-size:11px;letter-spacing:0.05em;color:var(--ink-soft);
+    text-transform:uppercase;
+  }
+  .ig-carousel{
+    position:relative;align-self:start;border:1px solid var(--line);border-radius:8px;
+    overflow:hidden;background:var(--paper);box-shadow:0 2px 14px rgba(25,28,25,0.07);
+  }
+  .ig-carousel-track{
+    display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .ig-carousel-track::-webkit-scrollbar{display:none;}
+  .ig-slide{flex:0 0 100%;scroll-snap-align:start;aspect-ratio:4/5;}
+  .ig-slide img{width:100%;height:100%;object-fit:cover;display:block;}
+  .ig-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;}
+  .ig-dots span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.45);transition:background .2s,transform .2s;display:block;}
+  .ig-dots span.active{background:#fff;transform:scale(1.2);}
+  .ig-carousel .tag{
+    position:absolute;top:10px;right:10px;margin:0;padding:5px 9px;border-radius:3px;
+    background:var(--paper);border:1px solid var(--line);
+    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.05em;color:var(--ink-soft);
+    z-index:2;
+  }
+
+  /* ---------- about ---------- */
+  .about{border-top:1px solid var(--line);padding:90px 0;}
+  .about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
+  @media(max-width:860px){.about .wrap{grid-template-columns:1fr;}}
+  .about h2{font-size:clamp(36px,5vw,64px);margin-bottom:22px;}
+  .about p{color:var(--ink-soft);font-size:15.5px;margin:0 0 14px;}
+  .about p strong{color:var(--ink);font-weight:600;}
+  .fact-list{list-style:none;margin:0;padding:0;}
+  .fact-list li{
+    display:flex;justify-content:space-between;gap:20px;
+    padding:13px 0;border-bottom:1px solid var(--line);
+    font-size:14px;
+  }
+  .fact-list .mono{color:var(--ink-soft);}
+  .fact-list b{font-weight:600;text-align:right;}
+
+  /* ---------- contact ---------- */
+  .contact{border-top:1px solid var(--line);padding:100px 0 60px;}
+  .contact h2{font-size:clamp(48px,9vw,120px);}
+  .contact h2 a{text-decoration:none;}
+  .contact h2 a:hover{color:var(--accent);}
+  .contact-row{
+    display:flex;flex-wrap:wrap;gap:12px 36px;margin-top:34px;
+    font-size:14px;color:var(--ink-soft);
+  }
+  .contact-row a{font-weight:500;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line-strong);}
+  .contact-row a:hover{color:var(--accent);border-color:var(--accent);}
+  .foot{
+    margin-top:70px;padding-top:20px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+    color:var(--ink-soft);
+  }
+
+  a.frame{text-decoration:none;}
+  .play{
+    position:absolute;top:10px;left:10px;z-index:2;
+    display:inline-flex;align-items:center;gap:6px;
+    padding:5px 10px;border-radius:99px;
+    background:rgba(25,28,25,0.72);color:#FAF8F3;
+    font-family:'IBM Plex Mono',monospace;font-size:10px;
+    letter-spacing:0.06em;text-transform:uppercase;
+  }
+  .play::before{content:"▶";font-size:8px;}
+
+  /* stat row for case study results */
+  .stats{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
+    margin:0 0 40px;
+  }
+  .stat{
+    border:1px solid var(--line);border-radius:4px;
+    padding:18px 20px;background:var(--accent-soft);
+    transition:background .6s ease;
+  }
+  .stat b{
+    display:block;font-family:'Archivo',sans-serif;
+    font-variation-settings:'wdth' 125;font-weight:800;
+    font-size:clamp(26px,3vw,38px);line-height:1;
+    color:var(--accent);transition:color .5s;
+  }
+  .stat span{
+    display:block;margin-top:8px;
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+    letter-spacing:0.07em;text-transform:uppercase;color:var(--ink-soft);
+  }
+  .stats.cols-3{grid-template-columns:repeat(3,1fr);}
+  .stat{min-width:0;}
+  @media(max-width:900px){.stats,.stats.cols-3{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:520px){.stats,.stats.cols-3{grid-template-columns:1fr;}}
+
+  /* experience timeline */
+  .xp{list-style:none;margin:34px 0 0;padding:0;border-top:1px solid var(--line);}
+  .xp li{
+    display:grid;grid-template-columns:130px 1fr;gap:16px;
+    padding:15px 0;border-bottom:1px solid var(--line);
+  }
+  .xp .mono{color:var(--ink-soft);padding-top:2px;}
+  .xp h4{margin:0;font-size:14.5px;font-weight:600;}
+  .xp p{margin:3px 0 0;font-size:13px;color:var(--ink-soft);line-height:1.5;}
+  @media(max-width:520px){.xp li{grid-template-columns:1fr;gap:4px;}}
+
+  /* receipts strip */
+  .receipts{margin-top:44px;padding-top:30px;border-top:1px dashed var(--line-strong);}
+  .receipts-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px;}
+  .receipts-head .mono{color:var(--accent);transition:color .5s;}
+  .receipts-head p{margin:0;font-size:13px;color:var(--ink-soft);}
+  .receipt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,260px));gap:14px;align-items:start;justify-content:start;}
+  .receipt{display:flex;flex-direction:column;gap:9px;}
+  /* captions sit on top so the row reads as one aligned strip despite
+     screenshots of different heights; lead with the follower count */
+  .receipt figcaption{order:-1;min-height:2.7em;}
+  .receipt-grid .receipt:nth-child(4){order:-1;}
+  .receipt .phone{
+    border:1px solid var(--line-strong);border-radius:14px;overflow:hidden;
+    background:#fff;box-shadow:0 2px 14px rgba(25,28,25,0.07);
+  }
+  .receipt .phone img{width:100%;height:auto;}
+  .receipt figcaption{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+    letter-spacing:0.05em;text-transform:uppercase;color:var(--ink-soft);
+  }
+  .receipt figcaption b{color:var(--accent);font-weight:500;transition:color .5s;}
+
+  /* e-comm product shelf */
+  .shelf{margin-top:44px;padding-top:30px;border-top:1px dashed var(--line-strong);}
+  .shelf-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px;}
+  .shelf-head .mono{color:var(--accent);transition:color .5s;}
+  .shelf-head p{margin:0;font-size:13px;color:var(--ink-soft);}
+  .shelf-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;}
+  .shelf-grid.cols-5{grid-template-columns:repeat(5,1fr);}
+  @media(max-width:960px){.shelf-grid,.shelf-grid.cols-5{grid-template-columns:repeat(3,1fr);}}
+  @media(max-width:480px){.shelf-grid,.shelf-grid.cols-5{grid-template-columns:repeat(2,1fr);}}
+  .product{display:flex;flex-direction:column;gap:8px;}
+  .product .pframe{
+    position:relative;
+    aspect-ratio:1/1;border:1px solid var(--line);border-radius:4px;
+    background:var(--accent-soft);
+    transition:background .6s ease;
+  }
+  /* absolutely positioned so portrait cutouts can't stretch the 1:1 tile */
+  .product .pframe img{position:absolute;left:12%;top:12%;width:76%;height:76%;object-fit:contain;filter:drop-shadow(0 6px 10px rgba(25,28,25,0.14));}
+  .product figcaption{
+    font-family:'IBM Plex Mono',monospace;font-size:10px;
+    letter-spacing:0.05em;text-transform:uppercase;color:var(--ink-soft);
+    display:flex;justify-content:space-between;gap:8px;
+  }
+
+  /* focus visibility */
+  a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
+
+  /* expandable deep-dive */
+  .more{
+    margin-top:40px;padding-top:6px;
+    border-top:1px dashed var(--line-strong);
+  }
+  .more>summary{
+    list-style:none;cursor:pointer;
+    display:inline-flex;align-items:center;gap:9px;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;
+    letter-spacing:0.09em;text-transform:uppercase;
+    color:var(--accent);padding:14px 0;
+    transition:opacity .2s ease;
+  }
+  .more>summary::-webkit-details-marker{display:none;}
+  .more>summary:hover{opacity:.65;}
+  .more>summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
+  .more>summary .sign{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:18px;height:18px;border:1px solid var(--line-strong);border-radius:50%;
+    font-size:12px;line-height:1;
+  }
+  .more>summary .sign::after{content:"+";}
+  .more[open]>summary .sign::after{content:"\00D7";}
+  .more .lbl-close{display:none;}
+  .more[open] .lbl-open{display:none;}
+  .more[open] .lbl-close{display:inline;}
+  .more-body{padding-bottom:8px;}
+
+  /* reveal on scroll */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
+  .reveal.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none;}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="dot"></span>Gavin Murphy</a>
+    <nav class="topnav">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="top-cta" href="#contact">Open to work</a>
+  </div>
+</header>
+
+<nav class="rail" aria-label="Section index">
+  <a href="#top" data-rail="top" aria-label="Top"></a>
+  <a href="#raw-garden" data-rail="raw-garden" aria-label="Raw Garden"></a>
+  <a href="#chase" data-rail="chase" aria-label="Chaz Bowker"></a>
+  <a href="#lovebug" data-rail="lovebug" aria-label="Lovebug"></a>
+  <a href="#cold-call" data-rail="cold-call" aria-label="Cold Call"></a>
+  <a href="#cortex" data-rail="cortex" aria-label="Cortex"></a>
+  <a href="#sets" data-rail="sets" aria-label="SETS"></a>
+  <a href="#events" data-rail="events" aria-label="Events"></a>
+  <a href="#about" data-rail="about" aria-label="About"></a>
+</nav>
+
+<!-- ================= HERO ================= -->
+<section class="hero-stage" id="top" data-accent="#191C19">
+  <div class="hero-pin">
+    <div class="wrap">
+      <div class="hero-copy">
+        <div class="hero-meta mono">
+          <span>Gavin Murphy</span>
+          <span>Santa Barbara, CA</span>
+          <span>Full stack marketing · Social-first</span>
+        </div>
+        <h1 class="display">Give me<br>the brand.<br><span class="tint">I'll give you<br>the culture.</span></h1>
+      </div>
+      <div class="deck" id="deck" aria-hidden="true">
+    <img src="img/37.jpg" alt="">
+    <img src="img/40.jpg" alt="">
+    <img src="img/39.jpg" alt="">
+    <img src="img/38.jpg" alt="">
+    <img src="img/41.jpg" alt="">
+    <img src="img/36.jpg" alt="">
+    <img src="img/44.jpg" alt="">
+    <img src="img/43.jpg" alt="">
+    <img src="img/42.jpg" alt="">
+      </div>
+    </div>
+    <div class="scroll-hint mono">Scroll</div>
+  </div>
+</section>
+
+<section class="hero-intro">
+  <div class="wrap">
+    <p class="hero-sub"><strong>Social-first strategy, photography, video, and design</strong>, with the production muscle to ship all of it myself. Over the last few years I've built content for cannabis, apparel, retail, fitness, and athlete brands, each with a completely different look and audience.</p>
+    <div class="index-row">
+      <a class="chip" href="#raw-garden" style="--c:#A98B3F"><i></i>Raw Garden <span class="mono">Cannabis</span></a>
+      <a class="chip" href="#chase" style="--c:#2F6E3E"><i></i>Chaz Bowker <span class="mono">Athlete / Ads</span></a>
+      <a class="chip" href="#lovebug" style="--c:#9D8BC7"><i></i>Lovebug <span class="mono">Apparel</span></a>
+      <a class="chip" href="#cold-call" style="--c:#4E7E9B"><i></i>Cold Call <span class="mono">Skate</span></a>
+      <a class="chip" href="#cortex" style="--c:#3E8E62"><i></i>Cortex <span class="mono">Retail + Art</span></a>
+      <a class="chip" href="#sets" style="--c:#D14E2C"><i></i>SETS <span class="mono">Fitness</span></a>
+      <a class="chip" href="#events" style="--c:#8A3B4C"><i></i>Events <span class="mono">Food + Bev</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CAPABILITIES ================= -->
+<section class="caps" id="work">
+  <div class="wrap">
+    <div class="cap reveal"><span class="mono">Strategy</span><h3>Social &amp; content strategy</h3><p>Channel planning, campaign concepts, and content calendars built around what a brand's audience actually watches.</p></div>
+    <div class="cap reveal"><span class="mono">Photo</span><h3>Photography</h3><p>Product, lifestyle, and event photography. Studio strobe work through golden hour naturalism. Fujifilm X-H2s.</p></div>
+    <div class="cap reveal"><span class="mono">Video</span><h3>Video production</h3><p>Shooting and editing short-form social, brand films, BTS, and vertical ad spots end to end.</p></div>
+    <div class="cap reveal"><span class="mono">Design</span><h3>Brand identity &amp; design</h3><p>Logos, brand systems, campaign graphics, and social templates teams can run without me. Everything from a SETS ground up identity to the Raw Garden rebrand.</p></div>
+    <div class="cap reveal"><span class="mono">Events</span><h3>Live coverage</h3><p>Premieres, pop-ups, and activations. Shot, edited, and delivered while the moment is still warm.</p></div>
+  </div>
+</section>
+
+<!-- ================= RAW GARDEN ================= -->
+<section class="case" id="raw-garden" data-accent="#A98B3F">
+  <div class="wrap">
+    <div class="case-head">
+      <div>
+        <span class="eyebrow">Flagship · Content + Strategy</span>
+        <h2 class="display">Raw Garden</h2>
+      </div>
+      <div>
+        <ul class="meta-list">
+          <li><span>Role</span><b>Creative Marketing Lead</b></li>
+          <li><span>Tenure</span><b>2024 to 2025 full time · Now retained</b></li>
+          <li><span>Scope</span><b>Strategy · Photo · Video · Social · Design</b></li>
+        </ul>
+      </div>
+    </div>
+    <div class="case-copy reveal" style="max-width:680px;margin-bottom:32px;">
+      <p>Creative and social lead for one of California's largest cannabis brands. I owned <strong>strategy and content production for all social channels</strong>, four major product launches including the Sprout, and a full company rebrand. I also designed the retail <strong>packaging for the "Sauce" cartridge line</strong>, physical product sold at dispensaries across California, not just a social asset. All of it in a heavily regulated industry with no paid ads to lean on. The strategy turned the account's multi-year follower decline into growth and produced the highest performing posts in brand history.</p>
+      <p>Beyond the camera I built a seven pillar content system across a three account ecosystem, the <strong>Wildlife Experts</strong> creator ambassador program designed to route around cannabis algorithm restrictions, and quarterly analytics reporting benchmarked against industry engagement standards. The top ambassador reel hit 3.3M views.</p>
+      <p>Everything below was shot, edited, and designed by me. Product, lifestyle, farm documentation, and campaign design. Raw Garden remains a creative services client today.</p>
+    </div>
+    <div class="stats reveal">
+      <div class="stat"><b>8.28%</b><span>Post engagement, doubled from 4.5% and now 2.4× the industry benchmark</span></div>
+      <div class="stat"><b>4.06M</b><span>Profile views YTD 2025, up 404% year over year</span></div>
+      <div class="stat"><b>257K</b><span>Views on the highest viewed post in brand history</span></div>
+      <div class="stat"><b>122K</b><span>Followers, a multi-year decline reversed to growth</span></div>
+    </div>
+    <div class="grid g-3 reveal">
+      <div class="frame r-34"><img src="img/01.jpg" alt="Raw Garden Sauce Joint 0.5g drip shot, hero image" loading="lazy"><span class="tag">rg-hero-drip</span></div>
+      <div class="frame r-34"><img src="img/03.jpg" alt="Raw Garden Desert Spring pre-roll lifestyle shoot" loading="lazy"><span class="tag">rg-lifestyle-desert</span></div>
+      <div class="frame r-34"><img src="img/02.jpg" alt="Raw Garden RL Diamonds concentrate macro shot" loading="lazy"><span class="tag">rg-macro-diamonds</span></div>
+    </div>
+    <details class="more">
+      <summary><span class="sign" aria-hidden="true"></span><span class="lbl-open">Full case study</span><span class="lbl-close">Close case study</span></summary>
+      <div class="more-body">
+    <div class="shelf" style="margin-top:14px;border-top:none;padding-top:0;">
+      <div class="shelf-head">
+        <span class="mono">The catalog, shot for the shelf</span>
+        <p>Studio product photography used across Raw Garden's website and dispensary menus.</p>
+      </div>
+      <div class="shelf-grid cols-5">
+        <figure class="product" style="margin:0"><div class="pframe"><img src="img/04.jpg" alt="Raw Garden RLR Joints · 0.5g 5-Pack product photo" loading="lazy"></div><figcaption><span>RLR Joints · 0.5g 5-Pack</span></figcaption></figure>
+        <figure class="product" style="margin:0"><div class="pframe"><img src="img/05.jpg" alt="Raw Garden RLR AIO Vape · White product photo" loading="lazy"></div><figcaption><span>RLR AIO Vape · White</span></figcaption></figure>
+        <figure class="product" style="margin:0"><div class="pframe"><img src="img/06.jpg" alt="Raw Garden Low-Voltage Battery · White product photo" loading="lazy"></div><figcaption><span>Low-Voltage Battery · White</span></figcaption></figure>
+        <figure class="product" style="margin:0"><div class="pframe"><img src="img/07.jpg" alt="Raw Garden RLR TPK Cartridge · 1.0g product photo" loading="lazy"></div><figcaption><span>RLR TPK Cartridge · 1.0g</span></figcaption></figure>
+        <figure class="product" style="margin:0"><div class="pframe"><img src="img/08.jpg" alt="Raw Garden Sauce Sprout AIO · 1.0g product photo" loading="lazy"></div><figcaption><span>Sauce Sprout AIO · 1.0g</span></figcaption></figure>
+      </div>
+    </div>
+    <div class="shelf">
+      <div class="shelf-head">
+        <span class="mono">Farm to shelf, where the design comes from</span>
+        <p>Raw Garden is vertically integrated. Everything it sells starts on its own Santa Barbara County farms. I documented the farm, then built the packaging around it.</p>
+      </div>
+      <div class="grid g-2">
+      <div class="frame r-169"><img src="img/09.jpg" alt="Raw Garden farm, hoop house rows" loading="lazy"><span class="tag">rg-farm-hoophouse</span></div>
+      <div class="frame r-169"><img src="img/10.jpg" alt="Raw Garden farm, tractor and field work" loading="lazy"><span class="tag">rg-farm-tractor</span></div>
+    </div>
+      <div class="grid g-3" style="margin-top:14px;">
+      <div class="frame r-34"><img src="img/11.jpg" alt="Raw Garden Sauce ceramic cartridge packaging, held in hand" loading="lazy"></div>
+      <div class="frame r-34"><img src="img/12.jpg" alt="Raw Garden Sauce ceramic cartridge packaging, side panel macro detail" loading="lazy"></div>
+      <div class="case-copy" style="align-self:center;font-size:14.5px;">
+        <p style="margin:0;"><strong>Sauce packaging design.</strong> The box wears the farm. The hoop house illustration along its base echoes the rows in the photos above, and the Sun Grown mark carries that farm to shelf story onto dispensary shelves across California. Art direction and design for a physical retail product.</p>
+      </div>
+      </div>
+    </div>
+    <div class="shelf">
+      <div class="shelf-head">
+        <span class="mono">Strategy, the system behind the numbers</span>
+        <p>A three account ecosystem, a creator program, and quarterly reporting benchmarked against the industry.</p>
+      </div>
+      <div class="stats cols-3" style="margin:0 0 14px;">
+        <div class="stat"><b>257K</b><span>@rawgarden, the main account. Top post in brand history</span></div>
+        <div class="stat"><b>131K</b><span>@rawgarden.supply, merch only. No cannabis content, so it can run paid media</span></div>
+        <div class="stat"><b>55K</b><span>@rawgarden.farm, cultivation and process. Reaches an audience the main account cannot</span></div>
+      </div>
+      <p class="grid-note" style="margin:22px 0 12px;">Wildlife Experts, the creator ambassador program. Skaters, riders, and builders posting from their own accounts, reaching past cannabis algorithm restrictions.</p>
+      <div class="receipt-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,220px));">
+        <figure class="receipt" style="margin:0"><div class="phone"><img src="img/60.jpg" alt="Wildlife Experts ambassador reel, skateboarding, 3.3M views" loading="lazy"></div><figcaption><b>3.3M views</b> on the skate reel</figcaption></figure>
+        <figure class="receipt" style="margin:0"><div class="phone"><img src="img/61.jpg" alt="Wildlife Experts ambassador reel, trail maintenance, 180K views" loading="lazy"></div><figcaption><b>180K views</b> on the trail build reel</figcaption></figure>
+        <figure class="receipt" style="margin:0"><div class="phone"><img src="img/62.jpg" alt="Wildlife Experts ambassador reel, motocross, 37.8K views" loading="lazy"></div><figcaption><b>37.8K views</b> on the moto reel</figcaption></figure>
+      </div>
+      <div class="grid g-2" style="margin-top:22px;">
+        <div class="frame r-169"><img src="img/59.jpg" alt="Raw Garden Social Media Analytics 2025 YTD deck cover" loading="lazy"><span class="tag">rg-analytics-deck</span></div>
+        <div class="case-copy" style="align-self:center;font-size:14.5px;">
+          <p style="margin:0;"><strong>Quarterly reporting.</strong> I write the analytics decks too. Engagement peaked at <strong>12.77%</strong> against a 0.6 to 2.5% cannabis norm and a 3.5% all industry average.</p>
+        </div>
+      </div>
+    </div>
+      </div>
+    </details>
+    <div class="receipts reveal">
+      <div class="receipts-head">
+        <span class="mono">Receipts, live account performance</span>
+        <p>Unedited screenshots from @rawgarden, 122K followers.</p>
+      </div>
+      <div class="receipt-grid">
+        <figure class="receipt" style="margin:0"><div class="phone"><img src="img/13.jpg" alt="Instagram post: new Sprout colorway, 5,312 likes and 2,649 shares" loading="lazy"></div><figcaption><b>5.3K likes · 2.6K shares</b> on the Sprout colorway drop</figcaption></figure>
+        <figure class="receipt" style="margin:0"><div class="phone"><img src="img/14.jpg" alt="Instagram post: goes anywhere rips everywhere, 5,216 likes and 2,040 shares" loading="lazy"></div><figcaption><b>5.2K likes · 2K shares</b> on the "Goes anywhere" carousel</figcaption></figure>
+        <figure class="receipt" style="margin:0"><div class="phone"><img src="img/15.jpg" alt="Instagram reel: Sprout all-in-one launch, 8,214 likes and 8,428 shares" loading="lazy"></div><figcaption><b>8.2K likes · 8.4K shares</b> on the Sprout launch reel</figcaption></figure>
+        <figure class="receipt" style="margin:0"><div class="phone"><img src="img/16.jpg" alt="Raw Garden Instagram profile showing 122K followers" loading="lazy"></div><figcaption><b>122K followers</b>, the first growth in years</figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHASE BOWKER ================= -->
+<section class="case" id="chase" data-accent="#2F6E3E">
+  <div class="wrap">
+    <div class="case-head">
+      <div>
+        <span class="eyebrow">Athlete · Paid social</span>
+        <h2 class="display">Chaz Bowker</h2>
+      </div>
+      <div>
+        <ul class="meta-list">
+          <li><span>Role</span><b>Director / Shooter / Editor</b></li>
+          <li><span>Brands</span><b>DraftKings · Dove · On</b></li>
+          <li><span>Platform</span><b>@chazonehunit · 175K · Verified</b></li>
+        </ul>
+      </div>
+    </div>
+    <div class="case-copy reveal" style="max-width:680px;margin-bottom:40px;">
+      <p>Ad production for golf personality <strong>Chaz Bowker</strong>. I concept, shoot, and edit vertical spots for national brands including <strong>DraftKings</strong> (story ads plus a World Cup reel), <strong>Dove</strong>, and <strong>On</strong> nicotine pouches. Every spot ships as an <strong>FTC-compliant paid partnership</strong> with disclosure tags and mandated warning cards, running live on his <a href="https://www.instagram.com/chazonehunit/" target="_blank" rel="noopener">verified 175K follower account</a> and the Chazzy Golf YouTube series. Personality first creative built to perform in feed.</p>
+    </div>
+    <div class="grid g-4 reveal">
+      <a class="frame r-916" href="https://drive.google.com/file/d/1uYAvOWBojdPbSsMbNfbafnfyHfFdkv8Z/view" target="_blank" rel="noopener"><span class="play">DraftKings</span><img src="img/46.jpg" alt="DraftKings story ad with Chaz Bowker" loading="lazy"><span class="tag">cb-dk-story</span></a>
+      <a class="frame r-916" href="https://drive.google.com/file/d/1lIQwcNRlfMgx0ns1EC-YhRL1mvgpZ3UT/view" target="_blank" rel="noopener"><span class="play">Dove</span><img src="img/47.jpg" alt="Dove ad with Chaz Bowker" loading="lazy"><span class="tag">cb-dove</span></a>
+      <a class="frame r-916" href="https://drive.google.com/file/d/1eOWU0hn-VcH_FFi0Lcj7tEWZVUAO55tA/view" target="_blank" rel="noopener"><span class="play">On · Driver stretch</span><img src="img/48.jpg" alt="On nicotine pouches driver stretch ad" loading="lazy"><span class="tag">cb-on</span></a>
+      <a class="frame r-916" href="https://drive.google.com/file/d/10kLoycx9Eqzg_vxmjbFjqbgHgFQbNvCS/view" target="_blank" rel="noopener"><span class="play">World Cup reel</span><img src="img/49.jpg" alt="DraftKings World Cup reel" loading="lazy"><span class="tag">cb-worldcup</span></a>
+    </div>
+    <p class="grid-note">Tap any spot to watch the full vertical cut</p>
+  </div>
+</section>
+
+<!-- ================= LOVEBUG ================= -->
+<section class="case" id="lovebug" data-accent="#9D8BC7">
+  <div class="wrap">
+    <div class="case-head">
+      <div>
+        <span class="eyebrow">Apparel · Santa Barbara</span>
+        <h2 class="display">Lovebug</h2>
+      </div>
+      <div>
+        <ul class="meta-list">
+          <li><span>Role</span><b>Photo · Art direction · Casting</b></li>
+          <li><span>Scope</span><b>Campaigns + full e-comm catalog</b></li>
+          <li><span>Store</span><b>Every product on lovebugca.com</b></li>
+        </ul>
+      </div>
+    </div>
+    <div class="case-copy reveal" style="max-width:680px;margin-bottom:40px;">
+      <p>Every shoot answers to one brand rule: <strong>made on a sunny day in California</strong>. Blue skies, natural light, and locations that sell the laid-back lifestyle the clothes are actually made in. Utilizing trending California locations like the Los Angeles Grass Spiral featured in the Purple Trip Hoodie launch post which drew <strong>326 likes and 60 shares on a 340-follower account</strong>. Engagement rivaling the brand’s entire audience.</p>
+      <p>Beyond lifestyle, I shoot the brand’s <strong>entire e-commerce catalog</strong>. Studio product photography, cutouts, and retouching for every item on the store.</p>
+    </div>
+    <div class="grid g-3 reveal">
+      <div class="frame r-34"><img src="img/45.jpg" alt="Lovebug Trip Hoodie on the grass spiral earthwork in Los Angeles" loading="lazy"><span class="tag">lb-trip-hoodie</span></div>
+      <div class="frame r-34"><img src="img/17.jpg" alt="Lovebug Realtree camo cap, Catalina Island lifestyle with horse" loading="lazy"><span class="tag">lb-catalina-horse</span></div>
+      <div class="frame r-34"><img src="img/58.jpg" alt="Lovebug Happy Place Tee on a beach fence in Santa Barbara" loading="lazy"><span class="tag">lb-happy-place</span></div>
+    </div>
+    <div class="shelf reveal">
+      <div class="shelf-head">
+        <span class="mono">The catalog. Shot, cut, and retouched</span>
+        <p>Studio product photography for every item sold on lovebugca.com.</p>
+      </div>
+      <div class="shelf-grid">
+        <figure class="product" style="margin:0"><div class="pframe"><img src="img/19.webp" alt="Lovebug powder blue logo tee product cutout" loading="lazy"></div><figcaption><span>logo tee · blue</span><span>$45</span></figcaption></figure>
+        <figure class="product" style="margin:0"><div class="pframe"><img src="img/20.webp" alt="Lovebug lavender tee back print product cutout" loading="lazy"></div><figcaption><span>logo tee · lavender</span><span>$45</span></figcaption></figure>
+        <figure class="product" style="margin:0"><div class="pframe"><img src="img/21.webp" alt="Lovebug powder blue script hat product cutout" loading="lazy"></div><figcaption><span>script hat</span><span>$40</span></figcaption></figure>
+        <figure class="product" style="margin:0"><div class="pframe"><img src="img/22.webp" alt="Lovebug mohair trip smile sweater product cutout" loading="lazy"></div><figcaption><span>mohair trip</span><span>knit</span></figcaption></figure>
+        <figure class="product" style="margin:0"><div class="pframe"><img src="img/23.webp" alt="Lovebug superbloom chenille hoodie product cutout" loading="lazy"></div><figcaption><span>superbloom hoodie</span><span>$150</span></figcaption></figure>
+        <figure class="product" style="margin:0"><div class="pframe"><img src="img/24.webp" alt="Lovebug purple trip hoodie product cutout" loading="lazy"></div><figcaption><span>trip hoodie</span><span>$150</span></figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COLD CALL ================= -->
+<section class="case" id="cold-call" data-accent="#4E7E9B">
+  <div class="wrap">
+    <div class="case-head">
+      <div>
+        <span class="eyebrow">Skate · Apparel</span>
+        <h2 class="display">Cold Call</h2>
+      </div>
+      <div>
+        <ul class="meta-list">
+          <li><span>Role</span><b>Photo · Design · Event coverage</b></li>
+          <li><span>Scope</span><b>Product drops + event content</b></li>
+          <li><span>Reach</span><b>15K views · 671 likes on premiere edit</b></li>
+        </ul>
+      </div>
+    </div>
+    <div class="case-copy reveal" style="max-width:680px;margin-bottom:40px;">
+      <p>Ongoing content for a Santa Barbara skate brand across two fronts. <strong>Product</strong>: campaign and lifestyle photography for tee drops like the Actycopter release, shot live on site. <strong>Events</strong>: full coverage of the <strong>"Ghosted" video premiere</strong>, a Cold Call × Lighthouse Skateshop party. That included a custom xerox textured event poster and the skate edit that pulled <strong>15K views and 671 likes</strong> on the brand's 3.3K follower account.</p>
+    </div>
+    <div class="grid g-3 reveal">
+      <div class="frame r-34"><img src="img/25.jpg" alt="Cold Call Actycopter hoodie flat lay" loading="lazy"><span class="tag">cc-actycopter-hoodie</span></div>
+      <div class="frame r-34"><img src="img/26.jpg" alt="Cold Call Actycopter tee, on location" loading="lazy"><span class="tag">cc-actycopter-tee</span></div>
+      <div class="frame r-34"><img src="img/27.jpg" alt="Cold Call Actycopter tee drop, truck bed lifestyle" loading="lazy"><span class="tag">cc-actycopter-truck</span></div>
+    </div>
+    <div class="grid g-2 reveal" style="margin-top:14px;">
+      <div class="frame r-45"><img src="img/50.jpg" alt="Cold Call Ghosted premiere poster design" loading="lazy"><span class="tag">cc-poster</span></div>
+      <a class="frame r-45" href="https://drive.google.com/file/d/1rZTPlDcR013hMXtb5y0GlqEDohnLItEJ/view" target="_blank" rel="noopener"><span class="play">Premiere edit</span><img src="img/51.jpg" alt="Cold Call Ghosted premiere skate edit" loading="lazy"><span class="tag">cc-premiere-edit · 15K</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CORTEX ================= -->
+<section class="case" id="cortex" data-accent="#3E8E62">
+  <div class="wrap">
+    <div class="case-head">
+      <div>
+        <span class="eyebrow">Retail · Art</span>
+        <h2 class="display">Cortex</h2>
+      </div>
+      <div>
+        <ul class="meta-list">
+          <li><span>Role</span><b>Content producer</b></li>
+          <li><span>Scope</span><b>Soft-open campaign · Photo · Video</b></li>
+        </ul>
+      </div>
+    </div>
+    <div class="case-copy reveal" style="max-width:680px;margin-bottom:40px;">
+      <p>Launch content for Cortex, an art and clothing retail concept. Gallery and space photography, merch BTS, and a soft open promo video built for social.</p>
+    </div>
+    <div class="grid g-cortex reveal">
+      <a class="frame r-916" href="https://drive.google.com/file/d/1QqnjHz_sxf4X2tDs3MYiUQ2EKRDTEO_7/view" target="_blank" rel="noopener"><span class="play">Merch BTS</span><img src="img/52.jpg" alt="Cortex soft open merch behind the scenes video" loading="lazy"><span class="tag">cx-merch-bts</span></a>
+      <a class="frame r-916" href="https://drive.google.com/file/d/1Y0DdHxswEimTNCxQoXFB7lZNsE0Op_04/view" target="_blank" rel="noopener"><span class="play">Soft open promo</span><img src="img/53.jpg" alt="Cortex soft open social promo video" loading="lazy"><span class="tag">cx-promo</span></a>
+      <div class="frame r-23"><img src="img/54.jpg" alt="Cortex gallery sculpture install" loading="lazy"><span class="tag">cx-gallery</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SETS ================= -->
+<section class="case" id="sets" data-accent="#D14E2C">
+  <div class="wrap">
+    <div class="case-head">
+      <div>
+        <span class="eyebrow">Fitness · Brand identity</span>
+        <h2 class="display">SETS Training Studio</h2>
+      </div>
+      <div>
+        <ul class="meta-list">
+          <li><span>Role</span><b>Brand identity · Photo · Social</b></li>
+          <li><span>Built</span><b>Logo, colors, template system</b></li>
+          <li><span>Top post</span><b>268 likes · welcome film 205</b></li>
+        </ul>
+      </div>
+    </div>
+    <div class="case-copy reveal" style="max-width:680px;margin-bottom:40px;">
+      <p>The one where I built the brand from scratch. <strong>Logo, brand colors, and the full visual identity</strong> for a Victorville training studio. Then the photography, the monthly "Fresh Programming" campaign graphics, and a <strong>social template system</strong> the studio's own team runs long after each shoot. Ground up brand design through day to day content, all in one house style.</p>
+      <p>The content carries the small account well past its size. The competition stage post pulled <strong>268 likes</strong> and the studio welcome film <strong>205</strong>, on an account of about 1,340 followers.</p>
+    </div>
+    <div class="grid g-sets reveal">
+      <div class="ig-carousel">
+      <div class="ig-carousel-track">
+        <div class="ig-slide"><img src="img/28.jpg" alt="SETS February Fresh Programming carousel, slide 1" loading="lazy"></div>
+        <div class="ig-slide"><img src="img/29.jpg" alt="SETS February Fresh Programming carousel, slide 2" loading="lazy"></div>
+        <div class="ig-slide"><img src="img/30.jpg" alt="SETS February Fresh Programming carousel, slide 3" loading="lazy"></div>
+        <div class="ig-slide"><img src="img/31.jpg" alt="SETS February Fresh Programming carousel, slide 4" loading="lazy"></div>
+      </div>
+      <div class="ig-dots"><span class="active"></span><span></span><span></span><span></span></div>
+      </div>
+      <a class="frame r-916" href="https://drive.google.com/file/d/17YOscZZputvrJ_jGWUEUk9j95dItTTE2/view" target="_blank" rel="noopener"><span class="play">First workout</span><img src="img/55.jpg" alt="First workout at SETS video" loading="lazy"><span class="tag">sets-first-workout</span></a>
+      <a class="frame r-916" href="https://drive.google.com/file/d/1qxD80Jre9L1dYkHZOnpCYFqOLQl0u-OL/view" target="_blank" rel="noopener"><span class="play">Paid media</span><img src="img/56.jpg" alt="SETS January paid media video" loading="lazy"><span class="tag">sets-paid-media</span></a>
+      <a class="frame r-916" href="https://drive.google.com/file/d/127w0wq2JTupM0_Gu9pGPAFUO9hf_lrLW/view" target="_blank" rel="noopener"><span class="play">Leg lab</span><img src="img/57.jpg" alt="SETS Leg Lab video" loading="lazy"><span class="tag">sets-leg-lab</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EVENTS ================= -->
+<section class="case" id="events" data-accent="#8A3B4C">
+  <div class="wrap">
+    <div class="case-head">
+      <div>
+        <span class="eyebrow">Food + Beverage · Live</span>
+        <h2 class="display">Homemade by Haley<br>× Municipal Winemakers</h2>
+      </div>
+      <div>
+        <ul class="meta-list">
+          <li><span>Role</span><b>Event photographer</b></li>
+          <li><span>Format</span><b>Pop-up coverage</b></li>
+        </ul>
+      </div>
+    </div>
+    <div class="case-copy reveal" style="max-width:680px;margin-bottom:40px;">
+      <p>Restaurant and event photography for a food and wine pop-up. Plates, pours, and the people in between. Fast turn coverage built for next morning social.</p>
+    </div>
+    <div class="grid g-events reveal" style="margin-top:14px;">
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="frame r-169"><img src="img/32.jpg" alt="Homemade by Haley pop-up plating and wine pour" loading="lazy"><span class="tag">ev-popup-01</span></div>
+        <div class="frame r-169"><img src="img/33.jpg" alt="Homemade by Haley pop-up, candid guest moment" loading="lazy"><span class="tag">ev-popup-02</span></div>
+      </div>
+      <div class="frame r-57"><img src="img/34.jpg" alt="Homemade by Haley pop-up, quesadilla and wine" loading="lazy"><span class="tag">ev-popup-03</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="about" id="about" data-accent="#191C19">
+  <div class="wrap">
+    <div>
+      <h2 class="display">About</h2>
+      <p>I'm Gavin, based in <strong>Santa Barbara</strong>. I've spent the last seven years in creative marketing on both sides of the table. In-house as <strong>Creative Marketing Lead at Raw Garden</strong>, and independently shooting content for clients like <strong>Mind Garden</strong>, <strong>Cold Call</strong>, and <strong>Cortex</strong>. Plus <strong>Savor</strong>, a retail delivery brand I co-founded and grew from zero through social alone. Building brands in the cannabis space taught me to grow audiences the hard way. Strict ad restrictions mean organic content, community, and creative that earns attention on its own.</p>
+      <p>Off the clock I digitize <strong>Hi8 and MiniDV tape</strong> on vintage camcorders and FireWire era Macs. An analog habit that keeps my eye honest. And I chase snow whenever the season allows.</p>
+      <p><strong>Now:</strong> looking to bring that full-stack range in-house to a marketing, social media, or content production team in the Santa Barbara area. Also booking freelance photo and content work.</p>
+      <ul class="xp">
+        <li><span class="mono">2025 to Now</span><div><h4>Freelance Creative · Photo, Video, Social &amp; Brand</h4><p>Retained by Raw Garden for creative services; content and campaigns for Lovebug, Cold Call, Cortex, and Chaz Bowker; full brand identity (logo through system) for SETS Training Studio.</p></div></li>
+        <li><span class="mono">2024 to 2025</span><div><h4>Raw Garden · Creative Marketing Lead</h4><p>Social strategy, all content production, and analytics. Doubled IG engagement (4.5%→8%+) and held it at 2.4× the industry benchmark, reversed a multi-year follower decline, led four launches, oversaw full rebrand.</p></div></li>
+        <li><span class="mono">2023 to Now</span><div><h4>Mind Garden · Photo &amp; Content</h4><p>Ongoing photography and content production for the branding studio and its clients, including Cortex.</p></div></li>
+        <li><span class="mono">2022 to 2024</span><div><h4>Hashy · Brand Development Specialist</h4><p>Short-form video and growth strategy for a cannabis software/hardware startup.</p></div></li>
+        <li><span class="mono">2019 to 2023</span><div><h4>Savor · Co-Founder</h4><p>Built a premium retail delivery brand from scratch through social, community, and influencer work.</p></div></li>
+        <li><span class="mono">2019</span><div><h4>Santa Barbara City College</h4><p>AA, Business Administration &amp; Marketing. Entrepreneurship, social media marketing, graphic design.</p></div></li>
+      </ul>
+    </div>
+    <div>
+      <div class="frame r-43" style="margin-bottom:26px;"><img src="img/35.jpg" alt="Gavin Murphy headshot" loading="lazy" style="object-position:center 15%;"><span class="tag">headshot</span></div>
+      <ul class="fact-list">
+        <li><span class="mono">Base</span><b>Santa Barbara, CA</b></li>
+        <li><span class="mono">Studio</span><b>Savor Productions</b></li>
+        <li><span class="mono">Camera</span><b>Fujifilm X-H2s + strobe kit</b></li>
+        <li><span class="mono">Edit</span><b>Lightroom · Premiere · Design tools</b></li>
+        <li><span class="mono">Verticals</span><b>Cannabis · Apparel · Retail · Fitness · Athlete · F&amp;B</b></li>
+        <li><span class="mono">Looking for</span><b>Full-time roles + freelance projects</b></li>
+      </ul>
+      <a href="https://www.instagram.com/murphys.lawless/" target="_blank" rel="noopener" style="display:block;margin-top:20px;padding:16px 18px;border:1px solid var(--line-strong);border-radius:6px;text-decoration:none;transition:border-color .3s,background .3s;">
+        <span class="mono" style="color:var(--accent);">Follow the work at @murphys.lawless</span>
+        <span style="display:block;margin-top:5px;font-size:13.5px;color:var(--ink-soft);">A live feed of client work and personal shooting. Skate, surf, snow, and film. About 15K views in the last 30 days.</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact" data-accent="#191C19">
+  <div class="wrap">
+    <span class="eyebrow">Let's talk</span>
+    <h2 class="display"><a href="mailto:gpmurphy98@gmail.com">Get in touch&nbsp;→</a></h2>
+    <div class="contact-row">
+      <span>Email: <a href="mailto:gpmurphy98@gmail.com">gpmurphy98@gmail.com</a></span>
+      <span>Phone: <a href="tel:+17604904017">(760) 490-4017</a></span>
+      <span>Instagram: <a href="https://www.instagram.com/murphys.lawless/" target="_blank" rel="noopener">@murphys.lawless</a></span>
+      <span>Location: Santa Barbara, CA</span>
+    </div>
+    <div class="foot mono">
+      <span>© 2026 Gavin Murphy</span>
+      <span>Santa Barbara, CA</span>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Chameleon accent: retint the page per section
+  const root = document.documentElement;
+  const sections = document.querySelectorAll('[data-accent]');
+  const railLinks = document.querySelectorAll('.rail a');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function hexToRgb(hex){
+    const n = parseInt(hex.slice(1),16);
+    return [(n>>16)&255,(n>>8)&255,n&255];
+  }
+  function setAccent(hex){
+    const [r,g,b] = hexToRgb(hex);
+    root.style.setProperty('--accent', hex);
+    root.style.setProperty('--accent-soft', `rgba(${r},${g},${b},0.09)`);
+    root.style.setProperty('--frame-tint', `rgba(${r},${g},${b},0.06)`);
+    // retint the whole page toward this client's world (9% accent into paper)
+    const mix = (a,p)=>Math.round(a*0.09 + p*0.91);
+    root.style.setProperty('--paper-tint', `rgb(${mix(r,250)},${mix(g,248)},${mix(b,243)})`);
+  }
+
+  const accentObserver = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        setAccent(e.target.dataset.accent);
+        const id = e.target.id;
+        railLinks.forEach(l=>l.classList.toggle('active', l.dataset.rail===id));
+      }
+    });
+  },{rootMargin:'-45% 0px -45% 0px'});
+  sections.forEach(s=>accentObserver.observe(s));
+
+  // Reveal on scroll
+  if(!reduceMotion){
+    const revealObserver = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){e.target.classList.add('in');revealObserver.unobserve(e.target);}
+      });
+    },{threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+  }else{
+    document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+  }
+
+  // Hero deck: clone tagged shots into a pile, fling them as you scroll
+  (function(){
+    const deck = document.getElementById('deck');
+    const stage = document.querySelector('.hero-stage');
+    if(!deck || !stage) return;
+    // fling vectors: alternate directions so the pile bursts outward
+    const scatter = [[-130,-45,-26],[135,-70,20],[-145,35,-32],[150,45,28],[-70,-125,-15],
+                     [80,-135,13],[-155,-95,-34],[160,-85,30],[-90,115,-22],[95,105,24],
+                     [-120,-110,-18],[125,95,16]];
+    [...deck.querySelectorAll('img')].forEach((c,i)=>{ // DOM order: first = bottom of pile
+      c.style.setProperty('--rz', ((i%2 ? 1 : -1) * (1 + (i*37)%3)) + 'deg');
+      c.style.setProperty('--ox', (((i*53)%13)-6) + 'px');
+      c.style.setProperty('--oy', (((i*29)%11)-5) + 'px');
+      const s = scatter[i % scatter.length];
+      c.style.setProperty('--fx', s[0]+'%');
+      c.style.setProperty('--fy', s[1]+'%');
+      c.style.setProperty('--fr', s[2]+'deg');
+    });
+    if(reduceMotion) return; // static stack, no pin, no fling
+    const cards = [...deck.children]; // DOM order: first = bottom of pile
+    const hint = document.querySelector('.scroll-hint');
+    function update(){
+      const max = stage.offsetHeight - window.innerHeight;
+      if(max <= 0) return;
+      const p = Math.min(1, Math.max(0, (window.scrollY - stage.offsetTop) / max));
+      const n = cards.length;
+      cards.forEach((c,i)=>{
+        const fromTop = n - 1 - i;               // 0 = top card
+        const t = 0.12 + fromTop * (0.68 / (n-1)); // top flings first, rest follow
+        c.classList.toggle('flung', p > t);
+      });
+      if(hint) hint.style.opacity = p > 0.04 ? 0 : 1;
+    }
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+    update();
+  })();
+
+  // Instagram-style carousel dots
+  document.querySelectorAll('.ig-carousel').forEach(car=>{
+    const track = car.querySelector('.ig-carousel-track');
+    const dots = car.querySelectorAll('.ig-dots span');
+    if(!track || !dots.length) return;
+    let debounce;
+    track.addEventListener('scroll', ()=>{
+      clearTimeout(debounce);
+      debounce = setTimeout(()=>{
+        const idx = Math.round(track.scrollLeft / track.clientWidth);
+        dots.forEach((d,i)=>d.classList.toggle('active', i===idx));
+      }, 60);
+    }, {passive:true});
+  });
+</script>
+</body>
+</html>
