@@ -375,8 +375,10 @@
     font-family:'IBM Plex Mono',monospace;font-size:10.5px;
     letter-spacing:0.07em;text-transform:uppercase;color:var(--ink-soft);
   }
-  @media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr);}}
-  @media(max-width:520px){.stats{grid-template-columns:1fr;}}
+  .stats.cols-3{grid-template-columns:repeat(3,1fr);}
+  .stat{min-width:0;}
+  @media(max-width:900px){.stats,.stats.cols-3{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:520px){.stats,.stats.cols-3{grid-template-columns:1fr;}}
 
   /* experience timeline */
   .xp{list-style:none;margin:34px 0 0;padding:0;border-top:1px solid var(--line);}
@@ -437,6 +439,34 @@
 
   /* focus visibility */
   a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
+
+  /* expandable deep-dive */
+  .more{
+    margin-top:40px;padding-top:6px;
+    border-top:1px dashed var(--line-strong);
+  }
+  .more>summary{
+    list-style:none;cursor:pointer;
+    display:inline-flex;align-items:center;gap:9px;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;
+    letter-spacing:0.09em;text-transform:uppercase;
+    color:var(--accent);padding:14px 0;
+    transition:opacity .2s ease;
+  }
+  .more>summary::-webkit-details-marker{display:none;}
+  .more>summary:hover{opacity:.65;}
+  .more>summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
+  .more>summary .sign{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:18px;height:18px;border:1px solid var(--line-strong);border-radius:50%;
+    font-size:12px;line-height:1;
+  }
+  .more>summary .sign::after{content:"+";}
+  .more[open]>summary .sign::after{content:"\00D7";}
+  .more .lbl-close{display:none;}
+  .more[open] .lbl-open{display:none;}
+  .more[open] .lbl-close{display:inline;}
+  .more-body{padding-bottom:8px;}
 
   /* reveal on scroll */
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
@@ -529,7 +559,7 @@
   <div class="wrap">
     <div class="case-head">
       <div>
-        <span class="eyebrow">Flagship · Cannabis</span>
+        <span class="eyebrow">Flagship · Content + Strategy</span>
         <h2 class="display">Raw Garden</h2>
       </div>
       <div>
@@ -553,10 +583,13 @@
     </div>
     <div class="grid g-3 reveal">
       <div class="frame r-34"><img src="img/01.jpg" alt="Raw Garden Sauce Joint 0.5g drip shot, hero image" loading="lazy"><span class="tag">rg-hero-drip</span></div>
-      <div class="frame r-34"><img src="img/02.jpg" alt="Raw Garden RL Diamonds concentrate macro shot" loading="lazy"><span class="tag">rg-macro-diamonds</span></div>
       <div class="frame r-34"><img src="img/03.jpg" alt="Raw Garden Desert Spring pre-roll lifestyle shoot" loading="lazy"><span class="tag">rg-lifestyle-desert</span></div>
+      <div class="frame r-34"><img src="img/02.jpg" alt="Raw Garden RL Diamonds concentrate macro shot" loading="lazy"><span class="tag">rg-macro-diamonds</span></div>
     </div>
-    <div class="shelf reveal" style="margin-top:14px;border-top:none;padding-top:0;">
+    <details class="more">
+      <summary><span class="sign" aria-hidden="true"></span><span class="lbl-open">Full case study</span><span class="lbl-close">Close case study</span></summary>
+      <div class="more-body">
+    <div class="shelf" style="margin-top:14px;border-top:none;padding-top:0;">
       <div class="shelf-head">
         <span class="mono">The catalog, shot for the shelf</span>
         <p>Studio product photography used across Raw Garden's website and dispensary menus.</p>
@@ -569,7 +602,7 @@
         <figure class="product" style="margin:0"><div class="pframe"><img src="img/08.jpg" alt="Raw Garden Sauce Sprout AIO · 1.0g product photo" loading="lazy"></div><figcaption><span>Sauce Sprout AIO · 1.0g</span></figcaption></figure>
       </div>
     </div>
-    <div class="shelf reveal">
+    <div class="shelf">
       <div class="shelf-head">
         <span class="mono">Farm to shelf, where the design comes from</span>
         <p>Raw Garden is vertically integrated. Everything it sells starts on its own Santa Barbara County farms. I documented the farm, then built the packaging around it.</p>
@@ -586,6 +619,31 @@
       </div>
       </div>
     </div>
+    <div class="shelf">
+      <div class="shelf-head">
+        <span class="mono">Strategy, the system behind the numbers</span>
+        <p>A three account ecosystem, a creator program, and quarterly reporting benchmarked against the industry.</p>
+      </div>
+      <div class="stats cols-3" style="margin:0 0 14px;">
+        <div class="stat"><b>257K</b><span>@rawgarden, the main account. Top post in brand history</span></div>
+        <div class="stat"><b>131K</b><span>@rawgarden.supply, merch only. No cannabis content, so it can run paid media</span></div>
+        <div class="stat"><b>55K</b><span>@rawgarden.farm, cultivation and process. Reaches an audience the main account cannot</span></div>
+      </div>
+      <p class="grid-note" style="margin:22px 0 12px;">Wildlife Experts, the creator ambassador program. Skaters, riders, and builders posting from their own accounts, reaching past cannabis algorithm restrictions.</p>
+      <div class="receipt-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,220px));">
+        <figure class="receipt" style="margin:0"><div class="phone"><img src="img/60.jpg" alt="Wildlife Experts ambassador reel, skateboarding, 3.3M views" loading="lazy"></div><figcaption><b>3.3M views</b> on the skate reel</figcaption></figure>
+        <figure class="receipt" style="margin:0"><div class="phone"><img src="img/61.jpg" alt="Wildlife Experts ambassador reel, trail maintenance, 180K views" loading="lazy"></div><figcaption><b>180K views</b> on the trail build reel</figcaption></figure>
+        <figure class="receipt" style="margin:0"><div class="phone"><img src="img/62.jpg" alt="Wildlife Experts ambassador reel, motocross, 37.8K views" loading="lazy"></div><figcaption><b>37.8K views</b> on the moto reel</figcaption></figure>
+      </div>
+      <div class="grid g-2" style="margin-top:22px;">
+        <div class="frame r-169"><img src="img/59.jpg" alt="Raw Garden Social Media Analytics 2025 YTD deck cover" loading="lazy"><span class="tag">rg-analytics-deck</span></div>
+        <div class="case-copy" style="align-self:center;font-size:14.5px;">
+          <p style="margin:0;"><strong>Quarterly reporting.</strong> I write the analytics decks too. Engagement peaked at <strong>12.77%</strong> against a 0.6 to 2.5% cannabis norm and a 3.5% all industry average.</p>
+        </div>
+      </div>
+    </div>
+      </div>
+    </details>
     <div class="receipts reveal">
       <div class="receipts-head">
         <span class="mono">Receipts, live account performance</span>
