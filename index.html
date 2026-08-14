@@ -124,67 +124,84 @@
   .rail a:hover{background:var(--accent);}
   @media(max-width:1100px){.rail{display:none;}}
 
-  /* ---------- hero: pinned work deck ---------- */
-  .hero-stage{height:280vh;position:relative;}
-  .hero-pin{
-    position:sticky;top:0;height:100vh;min-height:560px;
-    display:flex;align-items:center;overflow:hidden;
-  }
-  .hero-pin .wrap{
-    display:grid;grid-template-columns:1.15fr 1fr;
-    gap:clamp(24px,4vw,64px);align-items:center;width:100%;
-  }
+  /* ---------- hero: orbiting work ring ---------- */
+  .hero{padding:82px 0 0;position:relative;}
   .hero-meta{
     display:flex;flex-wrap:wrap;gap:10px 26px;
-    color:var(--ink-soft);margin-bottom:34px;
+    color:var(--ink-soft);margin:0 0 18px;
   }
-  .hero-copy h1{
-    font-size:clamp(40px,5.8vw,88px);
+  .orbit-stage{
+    perspective:3400px; perspective-origin:50% 50%;
+    height:660px; position:relative;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden; pointer-events:none;
   }
-  .hero-copy h1 .tint{
-    color:transparent;
-    -webkit-text-stroke:2px var(--ink);
+  .orbit-scene{position:relative;width:0;height:0;transform-style:preserve-3d;}
+  .orbit-ring{
+    position:absolute;left:50%;top:50%;
+    width:221px;height:276px;margin:-138px 0 0 -110px;
+    transform-style:preserve-3d;
+    transform:rotateZ(5deg) rotateX(-10deg) rotateY(var(--spin,0deg));
+    animation:orbit 52s linear infinite;
   }
-  .deck{
-    position:relative;aspect-ratio:4/5;
-    max-height:58vh;width:100%;max-width:400px;
-    justify-self:end;
+  @keyframes orbit{
+    from{transform:rotateZ(5deg) rotateX(-10deg) rotateY(0deg);}
+    to{transform:rotateZ(5deg) rotateX(-10deg) rotateY(360deg);}
   }
-  .deck img{
-    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-    border-radius:6px;border:1px solid var(--line);
-    box-shadow:0 14px 44px rgba(25,28,25,0.18);
-    transform:translate(var(--ox,0),var(--oy,0)) rotate(var(--rz,0deg));
-    transition:transform .55s cubic-bezier(.2,.7,.2,1),opacity .45s ease;
-    will-change:transform,opacity;
+  .orbit-ring figure{
+    position:absolute;inset:0;margin:0;
+    transform:rotateY(var(--a)) translateZ(556px);
+    transform-style:preserve-3d;
   }
-  .deck img.flung{
-    transform:translate(var(--fx,120%),var(--fy,-80%)) rotate(var(--fr,20deg)) scale(.45);
-    opacity:0;pointer-events:none;
+  /* two faces per panel, each hiding its own backside, so the photo is never mirrored */
+  .orbit-ring figure img{
+    position:absolute;inset:0;
+    width:100%;height:100%;object-fit:cover;display:block;
+    border-radius:3px;box-shadow:0 14px 34px rgba(25,28,25,0.22);
+    backface-visibility:hidden;
   }
-  .scroll-hint{
-    position:absolute;bottom:22px;left:50%;transform:translateX(-50%);
-    color:var(--ink-soft);transition:opacity .4s ease;
+  .orbit-ring figure img.back{transform:rotateY(180deg);}
+  /* headline layered over the ring, backed at the glyph level so there is no plate edge */
+  .orbit-title{
+    position:absolute;right:clamp(20px,4vw,56px);top:12%;z-index:5;
+    width:min(680px,56vw);
+    transform:rotate(-1deg);
+    text-align:left;pointer-events:none;
   }
+  .orbit-title h1{
+    font-size:clamp(30px,3.9vw,58px);margin:0;
+    text-shadow:
+      0 0 12px var(--paper), 0 0 12px var(--paper),
+      0 0 26px var(--paper), 0 0 26px var(--paper),
+      0 0 48px var(--paper), 0 0 70px var(--paper);
+  }
+  .orbit-title h1 .tint{color:transparent;-webkit-text-stroke:2px var(--ink);}
   .hero-intro{padding:8px 0 72px;}
   .hero-intro .hero-sub{margin:0;}
   @media(max-width:860px){
-    .hero-pin .wrap{grid-template-columns:1fr;gap:26px;align-content:center;}
-    .hero-meta{margin-bottom:20px;}
-    .deck{max-height:44vh;justify-self:center;}
+    .orbit-stage{height:520px;}
+    .orbit-scene{transform:translateY(58px);}
+    .orbit-ring{width:150px;height:188px;margin:-94px 0 0 -75px;}
+    .orbit-ring figure{transform:rotateY(var(--a)) translateZ(377px);}
+    /* on small screens the type gets its own air above the band instead of fighting it */
+    .orbit-title{left:50%;right:auto;top:0;width:min(440px,86vw);transform:translateX(-50%) rotate(-1deg);text-align:center;}
+    .orbit-title h1{font-size:clamp(28px,7.4vw,44px);}
+  }
+  @media(max-width:560px){
+    .orbit-stage{height:470px;}
+    .orbit-scene{transform:translateY(52px);}
+    .orbit-ring{width:118px;height:148px;margin:-74px 0 0 -59px;}
+    .orbit-ring figure{transform:rotateY(var(--a)) translateZ(297px);}
   }
   @media (prefers-reduced-motion: reduce){
-    .hero-stage{height:auto;}
-    .hero-pin{position:relative;height:auto;min-height:0;padding:150px 0 60px;}
-    .scroll-hint{display:none;}
+    .orbit-ring{animation:none;}
   }
   .hero-sub{
     max-width:600px;font-size:clamp(17px,1.6vw,20px);
     color:var(--ink-soft);margin:30px 0 0;
   }
   .hero-sub strong{color:var(--ink);font-weight:600;}
-
-  /* client index chips */
+    /* client index chips */
   .index-row{
     margin-top:46px;padding-top:26px;border-top:1px solid var(--line);
     display:flex;flex-wrap:wrap;gap:10px;
@@ -502,30 +519,19 @@
 </nav>
 
 <!-- ================= HERO ================= -->
-<section class="hero-stage" id="top" data-accent="#191C19">
-  <div class="hero-pin">
-    <div class="wrap">
-      <div class="hero-copy">
-        <div class="hero-meta mono">
-          <span>Gavin Murphy</span>
-          <span>Santa Barbara, CA</span>
-          <span>Full stack marketing · Social-first</span>
-        </div>
-        <h1 class="display">Give me<br>the brand.<br><span class="tint">I'll give you<br>the culture.</span></h1>
-      </div>
-      <div class="deck" id="deck" aria-hidden="true">
-    <img src="img/37.jpg" alt="">
-    <img src="img/40.jpg" alt="">
-    <img src="img/39.jpg" alt="">
-    <img src="img/38.jpg" alt="">
-    <img src="img/41.jpg" alt="">
-    <img src="img/36.jpg" alt="">
-    <img src="img/44.jpg" alt="">
-    <img src="img/43.jpg" alt="">
-    <img src="img/42.jpg" alt="">
-      </div>
+<section class="hero" id="top" data-accent="#191C19">
+  <div class="wrap">
+    <div class="hero-meta mono">
+      <span>Gavin Murphy</span>
+      <span>Santa Barbara, CA</span>
+      <span>Full stack marketing · Social-first</span>
     </div>
-    <div class="scroll-hint mono">Scroll</div>
+  </div>
+  <div class="orbit-stage">
+    <div class="orbit-scene"><div class="orbit-ring" id="orbit" aria-hidden="true"></div></div>
+    <div class="orbit-title">
+      <h1 class="display">Give me the<br>brand.<br><span class="tint">I'll give you<br>the culture.</span></h1>
+    </div>
   </div>
 </section>
 
@@ -964,42 +970,26 @@
     document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
   }
 
-  // Hero deck: clone tagged shots into a pile, fling them as you scroll
+  // Hero orbit: build a 3D ring of work. Two faces per panel so nothing renders mirrored.
   (function(){
-    const deck = document.getElementById('deck');
-    const stage = document.querySelector('.hero-stage');
-    if(!deck || !stage) return;
-    // fling vectors: alternate directions so the pile bursts outward
-    const scatter = [[-130,-45,-26],[135,-70,20],[-145,35,-32],[150,45,28],[-70,-125,-15],
-                     [80,-135,13],[-155,-95,-34],[160,-85,30],[-90,115,-22],[95,105,24],
-                     [-120,-110,-18],[125,95,16]];
-    [...deck.querySelectorAll('img')].forEach((c,i)=>{ // DOM order: first = bottom of pile
-      c.style.setProperty('--rz', ((i%2 ? 1 : -1) * (1 + (i*37)%3)) + 'deg');
-      c.style.setProperty('--ox', (((i*53)%13)-6) + 'px');
-      c.style.setProperty('--oy', (((i*29)%11)-5) + 'px');
-      const s = scatter[i % scatter.length];
-      c.style.setProperty('--fx', s[0]+'%');
-      c.style.setProperty('--fy', s[1]+'%');
-      c.style.setProperty('--fr', s[2]+'deg');
+    const ring = document.getElementById('orbit');
+    if(!ring) return;
+    const PHOTOS = [
+      'img/70.jpg','img/71.jpg','img/72.jpg','img/73.jpg','img/74.jpg','img/75.jpg',
+      'img/76.jpg','img/77.jpg','img/78.jpg','img/79.jpg','img/80.jpg','img/81.jpg',
+      'img/82.jpg','img/83.jpg','img/84.jpg','img/85.jpg'
+    ];
+    const N = PHOTOS.length;
+    PHOTOS.forEach((src,i)=>{
+      const f = document.createElement('figure');
+      f.style.setProperty('--a', (i*360/N)+'deg');
+      const front = document.createElement('img');
+      front.src = src; front.alt = ''; front.loading = i < 6 ? 'eager' : 'lazy';
+      const back = document.createElement('img');
+      back.src = src; back.alt = ''; back.className = 'back'; back.loading = front.loading;
+      f.appendChild(front); f.appendChild(back);
+      ring.appendChild(f);
     });
-    if(reduceMotion) return; // static stack, no pin, no fling
-    const cards = [...deck.children]; // DOM order: first = bottom of pile
-    const hint = document.querySelector('.scroll-hint');
-    function update(){
-      const max = stage.offsetHeight - window.innerHeight;
-      if(max <= 0) return;
-      const p = Math.min(1, Math.max(0, (window.scrollY - stage.offsetTop) / max));
-      const n = cards.length;
-      cards.forEach((c,i)=>{
-        const fromTop = n - 1 - i;               // 0 = top card
-        const t = 0.12 + fromTop * (0.68 / (n-1)); // top flings first, rest follow
-        c.classList.toggle('flung', p > t);
-      });
-      if(hint) hint.style.opacity = p > 0.04 ? 0 : 1;
-    }
-    window.addEventListener('scroll', update, {passive:true});
-    window.addEventListener('resize', update);
-    update();
   })();
 
   // Instagram-style carousel dots
