@@ -184,8 +184,19 @@
     .orbit-ring{width:150px;height:188px;margin:-94px 0 0 -75px;}
     .orbit-ring figure{transform:rotateY(var(--a)) translateZ(377px);}
     /* on small screens the type gets its own air above the band instead of fighting it */
-    .orbit-title{left:50%;right:auto;top:0;width:min(440px,86vw);transform:translateX(-50%) rotate(-1deg);text-align:center;}
-    .orbit-title h1{font-size:clamp(28px,7.4vw,44px);}
+    .orbit-title{left:50%;right:auto;top:0;width:min(440px,90vw);transform:translateX(-50%) rotate(-1deg);text-align:center;}
+    /* .display sets line-height:0.95, which is tighter than the glyphs at small sizes and
+       makes the lines collide. Open it up and lighten the stroke and glow to match. */
+    .orbit-title h1{
+      font-size:clamp(26px,6.8vw,40px);
+      line-height:1.06;
+      letter-spacing:0;
+      text-shadow:
+        0 0 8px var(--paper), 0 0 8px var(--paper),
+        0 0 16px var(--paper), 0 0 16px var(--paper),
+        0 0 30px var(--paper);
+    }
+    .orbit-title h1 .tint{-webkit-text-stroke-width:1.3px;}
   }
   @media(max-width:560px){
     .orbit-stage{height:470px;}
